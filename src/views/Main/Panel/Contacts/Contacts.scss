@@ -1,0 +1,24 @@
+.Contacts-Panel {
+    height: 100%;
+    padding: 15px 25px;
+    position: relative;
+
+    h3 {
+        font-size: 2.5rem;        
+        font-weight: 800;
+        color: rgba(0, 0, 0, 0.664);
+    }
+
+    &__btn {
+        position: absolute !important;
+        right: 20px;
+        top: 20px;
+    }
+
+    &__pgn {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

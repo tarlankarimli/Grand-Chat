@@ -1,0 +1,63 @@
+.form__box {
+    background-image:  linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.4)),url('../../assets/bg-img.png');
+    background-size: cover;    
+    height: 100vh;
+
+    &__header {      
+        height: 150px;
+        padding: 0 60px;
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+
+        &__heading {
+            color: lightcyan;
+            font-size: 50px;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        &__signin {   
+            display: flex;
+            align-items: center;
+            width: 700px;
+
+            span {                
+                color: lightcyan;               
+                font-size: 15px;
+                margin: 0 10px;
+            }
+        }
+    }
+
+    &__main {        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 150px);
+        width: 100%;
+
+        &__container {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid lightcyan;
+            border-radius: 4px;
+            height: 400px;
+            width: 350px;
+            padding: 30px;
+            position: relative;
+
+            .rg__input {
+                margin-bottom: 30px;
+                padding: 8px;
+                border-radius: 4px;
+            }
+
+            &__btn {
+                width: 150px;
+                margin: auto;
+            }
+        }
+    }
+}

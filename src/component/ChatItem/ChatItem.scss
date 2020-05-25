@@ -1,0 +1,29 @@
+.Chat-Item {
+    border-bottom: 1px solid rgba(192, 191, 191, 0.541);
+    min-height: 60px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 70%;
+
+        &__username {
+            font-weight: 600;
+        }
+        &__message {
+            opacity: 0.8;
+        }
+        &__date {
+            opacity: 0.8;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+}
+

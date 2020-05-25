@@ -1,0 +1,43 @@
+.Main {
+    height: 100vh;
+
+    .logo {
+        height: 32px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 16px;
+
+        h3 {
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+        }
+    }
+
+    .site-layout {
+        .site-layout-background {
+        background: #fff;
+        margin: 5px;
+        padding: 24;
+        min-height: 280;
+        position: relative;
+
+        .Dropdown {
+            position: absolute;
+            right: 0;
+            top: 16px;
+        }        
+
+        .trigger {
+            font-size: 18px;
+            line-height: 64px;
+            padding: 0 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+
+            &:hover {
+                color: #1890ff;
+            }
+          }
+      }
+    }
+}

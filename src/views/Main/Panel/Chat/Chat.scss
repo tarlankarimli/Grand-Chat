@@ -1,0 +1,103 @@
+.Chat-Panel {
+    display: flex;
+    border: 1px solid rgba(58, 56, 56, 0.205);
+    height: 100%;
+    &__chat-aside {
+        width: 200px;
+        height: 100%;
+        border: 1px solid rgba(192, 191, 191, 0.541);
+    }
+
+    &__chat-area {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+       
+        header {
+            border-bottom: 1px solid rgba(192, 191, 191, 0.541);
+            height: 60px;
+            padding: 15px 40px;
+
+            h3 {
+                font-size: 2rem;
+            }
+        }
+
+        section {
+            flex-grow: 1;
+            padding: 20px 40px;
+            overflow-y: scroll;
+
+            .left__message {
+                width: fit-content;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+
+                &__avatar {
+                    position: absolute;
+                    top: 5px;
+                }
+
+                &__text {
+                    border: 1px solid rgba(0,0,0, .2);
+                    border-radius: 20px;
+                    margin-left: 55px;
+                    font-size: 1.8rem;
+                    min-height: 40px;
+                    max-width: 80%;
+                    padding: 10px 20px;
+                }
+
+                &__date {
+                    margin: 5px 80px;
+                    font-size: 1.5rem;
+                    opacity: 0.8;
+                }
+            }
+
+            .right__message {                
+                align-items: flex-end;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+
+                &__avatar {
+                    position: absolute;
+                    top: 5px;
+                    right: 0;
+                }
+
+                &__text {                    
+                    background: rgba(121, 173, 121, 0.295);
+                    border: 1px solid rgba(0,0,0, .2);
+                    border-radius: 20px;
+                    margin-right: 55px;
+                    font-size: 1.8rem;
+                    min-height: 40px;
+                    max-width: 80%;
+                    padding: 10px 20px;                    
+                }
+
+                &__date {
+                    margin: 5px 80px;
+                    font-size: 1.5rem;
+                    opacity: 0.8;
+                }
+            }
+        }
+
+        footer {
+            display: flex;
+
+            .Chat__input {
+                flex-grow: 1;
+            }
+            .Chat__button {
+                margin: 5px;
+            }
+        }
+    }
+}
+
+
