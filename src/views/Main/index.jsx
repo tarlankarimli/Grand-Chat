@@ -29,7 +29,7 @@ const Main = () => {
 
     const { user } = useContext(userContext);
     const { socket, setSocket } = useContext(socketContext)
-    const {message, messageDispatch} = useContext(messageContext)
+    const {messageDispatch} = useContext(messageContext)
 
     useEffect(()=> {
       if(user && !socket) {

@@ -6,6 +6,11 @@
     justify-content: space-around;
     align-items: center;
 
+    &:hover {
+        background-color: rgb(221, 214, 214);
+        cursor: pointer;
+    }
+
     &__items {
         display: flex;
         flex-direction: column;

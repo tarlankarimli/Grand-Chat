@@ -19,6 +19,7 @@ const Chat = () => {
     const {socket} = useContext(socketContext)
     const {message, messageDispatch} = useContext(messageContext)
     const [typedMessages, setTypedMessages] = useState('');
+    const [selectedContactId, setSelectedContactId] = useState(undefined);
 
     useEffect(() => {  
         dispatch({type: ActionTypes.LOADING})  
@@ -34,7 +35,7 @@ const Chat = () => {
             className="site-layout-background Chat-Panel"
         >
             <aside className = "Chat-Panel__chat-aside">
-                <ChatItem contacts = {contacts.value}/>
+                <ChatItem contacts = {contacts.value} contactSelected={contactId=>{setSelectedContactId(contactId)}} />
             </aside>
 
             <section className = "Chat-Panel__chat-area">
@@ -43,9 +44,9 @@ const Chat = () => {
                 </header>
                 <section>
                     {
-                        user && message[user.id]
+                        user && message[selectedContactId]
                         ?
-                        message[user.id].map((data, index)=> {
+                        message[selectedContactId].map((data, index)=> {
                             if(data.side ==="from") {
                                 return (
                                     <div className="right__message" key={index}>
@@ -76,6 +77,13 @@ const Chat = () => {
                     size = "large"
                     value = {typedMessages}
                     onChange = {(e)=> {setTypedMessages(e.target.value)}}
+                    onKeyDown = {(key)=>{
+                        if(key.keyCode===13){
+                            socket.emit('send', {from_user: user.id, to_user: selectedContactId, message: typedMessages})
+                            messageDispatch({type: messageActions.ActionTypes.ADD, payload: {to: selectedContactId, message: typedMessages, side: "from"}})
+                            setTypedMessages('');
+                        }
+                    }}
                     />
 
                     <Button className = "Chat__button"
@@ -84,9 +92,9 @@ const Chat = () => {
                         icon={<SendOutlined />}
                         size="large"
                         onClick={()=> {
-                            socket.emit('send', {from_user: user.id, to_user: user.id, message: typedMessages})
-                            messageDispatch({type: messageActions.ActionTypes.ADD, payload: {to: user.id, message: typedMessages, side: "from"}})
-                            setTypedMessages('')
+                            socket.emit('send', {from_user: user.id, to_user: selectedContactId, message: typedMessages})
+                            messageDispatch({type: messageActions.ActionTypes.ADD, payload: {to: selectedContactId, message: typedMessages, side: "from"}})
+                            setTypedMessages('');
                         }}>                        
                     </Button>
                 </footer>
