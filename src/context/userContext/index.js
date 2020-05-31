@@ -7,9 +7,9 @@ const UserContextProvider = ({children}) => {
   const [user, setUser] = useState(undefined);
   useEffect(() => {
     let ProfilName = JSON.parse((window.localStorage.getItem(appConfig.ProfilName)));
-    let LocalToken = JSON.parse((window.localStorage.getItem(appConfig.LocalToken)))
+    let Localtoken = window.localStorage.getItem(appConfig.Localtoken)
     if(ProfilName) {
-        setUser({...ProfilName,token: LocalToken})
+        setUser({...ProfilName,token: Localtoken})
     }
   }, [])
     return (

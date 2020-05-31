@@ -10,16 +10,19 @@ import {
   import contactsContext, {ActionTypes} from '../../../../context/contactsContext';
   import userContext from '../../../../context/userContext'
   import socketContext from '../../../../context/socketContext'
-  import messageContext, * as messageActions from '../../../../context/messageContext'
+  import {useSelector} from 'react-redux'
+  import {useDispatch} from 'react-redux'
+  import addMessage from '../../../../store/messages/actions'
 
 const { Content } = Layout;
 const Chat = () => {
     const {contacts, dispatch} = useContext(contactsContext);
     const {user} = useContext(userContext);
     const {socket} = useContext(socketContext)
-    const {message, messageDispatch} = useContext(messageContext)
     const [typedMessages, setTypedMessages] = useState('');
     const [selectedContactId, setSelectedContactId] = useState(undefined);
+    const message = useSelector(store => store.message);
+    const dispatchMessage = useDispatch();
 
     useEffect(() => {  
         dispatch({type: ActionTypes.LOADING})  
@@ -80,7 +83,7 @@ const Chat = () => {
                     onKeyDown = {(key)=>{
                         if(key.keyCode===13){
                             socket.emit('send', {from_user: user.id, to_user: selectedContactId, message: typedMessages})
-                            messageDispatch({type: messageActions.ActionTypes.ADD, payload: {to: selectedContactId, message: typedMessages, side: "from"}})
+                            dispatchMessage(addMessage("from", selectedContactId, typedMessages))
                             setTypedMessages('');
                         }
                     }}
@@ -92,8 +95,8 @@ const Chat = () => {
                         icon={<SendOutlined />}
                         size="large"
                         onClick={()=> {
-                            socket.emit('send', {from_user: user.id, to_user: selectedContactId, message: typedMessages})
-                            messageDispatch({type: messageActions.ActionTypes.ADD, payload: {to: selectedContactId, message: typedMessages, side: "from"}})
+                            socket.emit('send', {from_user: user.id, to_user: selectedContactId, message: typedMessages});
+                            dispatchMessage(addMessage("from", selectedContactId, typedMessages))
                             setTypedMessages('');
                         }}>                        
                     </Button>

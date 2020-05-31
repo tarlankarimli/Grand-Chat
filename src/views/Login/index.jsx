@@ -35,9 +35,9 @@ const Login = () => {
                                 AuthApi.login(LoginParam.username, LoginParam.password).then(res => {
                                     if(res.status === 200) {
                                         setUser({...res.data.user, token: res.data.token.token});
-                                        history.replace("/");
                                         window.localStorage.setItem(appConfig.Localtoken, res.data.token.token)
-                                        window.localStorage.setItem(appConfig.ProfilName, JSON.stringify(res.data.user))            
+                                        window.localStorage.setItem(appConfig.ProfilName, JSON.stringify(res.data.user))
+                                        history.replace("/");            
                                     }
                                 }).catch (error=>{
                                     console.log("error", error)

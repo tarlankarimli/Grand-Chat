@@ -18,7 +18,8 @@ import userContext from '../../context/userContext';
 import {ContactsContextProvider} from '../../context/contactsContext';
 import io from 'socket.io-client';
 import socketContext from '../../context/socketContext';
-import messageContext, * as messageActions from '../../context/messageContext'
+import {useDispatch} from 'react-redux'
+import addMessage from '../../store/messages/actions'
 
 const { Header, Sider} = Layout;
 
@@ -29,7 +30,7 @@ const Main = () => {
 
     const { user } = useContext(userContext);
     const { socket, setSocket } = useContext(socketContext)
-    const {messageDispatch} = useContext(messageContext)
+    const dispatch = useDispatch();
 
     useEffect(()=> {
       if(user && !socket) {
@@ -37,11 +38,11 @@ const Main = () => {
         temp.on('connect', _=>{console.log("connected")});
         temp.on('disconnect', _=>{console.log("disconnected")});
         temp.on('receive', (data)=>{
-          messageDispatch({type: messageActions.ActionTypes.ADD, payload: {message: data.message, to: data.from_user, side: "to"}})
+          dispatch(addMessage("to", data.from_user, data.message))
         })
         setSocket(temp)
       }
-    },[user, socket, setSocket,  messageDispatch])
+    },[user, socket, setSocket,  dispatch])
 
   const toggle = () => {
     setCollapsed(!collapsed);
