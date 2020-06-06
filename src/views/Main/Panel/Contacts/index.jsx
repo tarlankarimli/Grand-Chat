@@ -1,10 +1,12 @@
-import React, {useState, useContext, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import * as ContactApi from 'api/ContactApi'
 import { Layout, Button, Pagination, Table, Popconfirm, message} from "antd"
 import "./Contacts.scss"
 import CreateContact from './Modals/CreateContact';
 import EditContact from './Modals/EditContact';
-import contactsContext, {ActionTypes} from 'context/contactsContext'
+import * as ActionTypes from 'store/contacts/ActionTypes';
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 const { Content } = Layout;
 const Contacts = () => {
@@ -12,21 +14,21 @@ const Contacts = () => {
     const [visible, setVisible] = useState(false);
     const [editVisible, setEditVisible] = useState(false);
     const [editContactID, seteditContactID] = useState(undefined);
+    const contacts = useSelector(store => store.contacts);
+    const dispatchContacts = useDispatch();
 
-    const {contacts, dispatch} = useContext(contactsContext);
-
-    const getRefresh = (dispatch) => {
-      dispatch({type: ActionTypes.LOADING})
+    const getRefresh = (dispatchContacts) => {
+      dispatchContacts({type: ActionTypes.LOADING})
       ContactApi.getContacts().then(res => {
-        dispatch({type: ActionTypes.SET, payload: res.data.map(data => ({key: data.id, ...data}))})
+        dispatchContacts({type: ActionTypes.SET, payload: res.data.map(data => ({key: data.id, ...data}))})
       }).catch(error => {
-        dispatch({type: ActionTypes.ERROR, payload: error.message})
+        dispatchContacts({type: ActionTypes.ERROR, payload: error.message})
       })
     }
     
 
     useEffect(() => {    
-      getRefresh(dispatch);
+      getRefresh(dispatchContacts);
       // eslint-disable-next-line
     }, [])
 
@@ -75,7 +77,7 @@ const Contacts = () => {
                     title="Are you sure delete this contact?"
                     onConfirm={()=> {
                       ContactApi.remove(record.id)
-                      .then(_=>{getRefresh(dispatch)})
+                      .then(_=>{getRefresh(dispatchContacts)})
                     .catch(error=> {
                      message.error("Not available to delete contact")
                     })}}
@@ -122,13 +124,13 @@ const Contacts = () => {
               <CreateContact 
               visible = {visible} 
               setVisible = {setVisible}
-              refresh ={()=>{getRefresh(dispatch)}}/>
+              refresh ={()=>{getRefresh(dispatchContacts)}}/>
 
               <EditContact 
               visible = {editVisible} 
               setVisible = {setEditVisible}
               id = {editContactID}
-              refresh ={()=>{getRefresh(dispatch)}}/>
+              refresh ={()=>{getRefresh(dispatchContacts)}}/>
         </Content>
     )
 }

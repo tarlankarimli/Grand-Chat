@@ -15,7 +15,6 @@ import {Route, Link, Switch, Redirect, useHistory} from 'react-router-dom';
 import appConfig from 'config/appConfig';
 import apiConfig from 'config/apiConfig';
 import userContext from 'context/userContext';
-import {ContactsContextProvider} from 'context/contactsContext';
 import io from 'socket.io-client';
 import socketContext from 'context/socketContext';
 import {useDispatch} from 'react-redux'
@@ -102,7 +101,6 @@ const Main = () => {
                 </Button>      
             </Dropdown>
           </Header>
-          <ContactsContextProvider>
             <Switch>
               <Route exact path = "/Chat">
                 <Chat/>
@@ -115,7 +113,6 @@ const Main = () => {
               </Route>
               <Redirect to = "/Chat"/>
             </Switch>
-          </ContactsContextProvider>
         </Layout>
       </Layout>
     );

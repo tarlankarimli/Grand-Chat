@@ -7,22 +7,24 @@ import {
     SendOutlined, UserOutlined
   } from '@ant-design/icons';
   import { Avatar } from 'antd';
-  import contactsContext, {ActionTypes} from 'context/contactsContext';
+  import * as ActionTypes from 'store/contacts/ActionTypes';
   import userContext from 'context/userContext'
   import socketContext from 'context/socketContext'
   import {useSelector} from 'react-redux'
   import {useDispatch} from 'react-redux'
   import addMessage from 'store/messages/actions'
 
-const { Content } = Layout;
-const Chat = () => {
-    const {contacts, dispatch} = useContext(contactsContext);
+    const { Content } = Layout;
+    const Chat = () => {
+    //const {contacts, dispatch} = useContext(contactsContext);
     const {user} = useContext(userContext);
     const {socket} = useContext(socketContext)
     const [typedMessages, setTypedMessages] = useState('');
     const [selectedContactId, setSelectedContactId] = useState(undefined);
     const message = useSelector(store => store.message);
     const dispatchMessage = useDispatch();
+    const contacts = useSelector(store => store.contacts);
+    const dispatchContacts = useDispatch();
     const socketEmit = () => {
         socket.emit('send', {from_user: user.id, to_user: selectedContactId, message: typedMessages});
     dispatchMessage(addMessage("from", selectedContactId, typedMessages))
@@ -30,11 +32,11 @@ const Chat = () => {
     }
 
     useEffect(() => {  
-        dispatch({type: ActionTypes.LOADING})  
+        dispatchContacts({type: ActionTypes.LOADING})  
         getContacts().then(res => {
-            dispatch({type: ActionTypes.SET, payload: res.data})
+            dispatchContacts({type: ActionTypes.SET, payload: res.data})
         }).catch(error => {
-            dispatch({type: ActionTypes.ERROR, payload: error.message})
+            dispatchContacts({type: ActionTypes.ERROR, payload: error.message})
         })
         // eslint-disable-next-line
       }, [])
