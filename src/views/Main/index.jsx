@@ -12,14 +12,14 @@ import './Main.scss'
 import Chat from './Panel/Chat/index';
 import Contacts from './Panel/Contacts/index'
 import {Route, Link, Switch, Redirect, useHistory} from 'react-router-dom';
-import appConfig from '../../config/appConfig';
-import apiConfig from '../../config/appConfig';
-import userContext from '../../context/userContext';
-import {ContactsContextProvider} from '../../context/contactsContext';
+import appConfig from 'config/appConfig';
+import apiConfig from 'config/apiConfig';
+import userContext from 'context/userContext';
+import {ContactsContextProvider} from 'context/contactsContext';
 import io from 'socket.io-client';
-import socketContext from '../../context/socketContext';
+import socketContext from 'context/socketContext';
 import {useDispatch} from 'react-redux'
-import addMessage from '../../store/messages/actions'
+import addMessage from 'store/messages/actions'
 
 const { Header, Sider} = Layout;
 
@@ -30,7 +30,7 @@ const Main = () => {
 
     const { user } = useContext(userContext);
     const { socket, setSocket } = useContext(socketContext)
-    const dispatch = useDispatch();
+    const dispatchMessage = useDispatch();
 
     useEffect(()=> {
       if(user && !socket) {
@@ -38,11 +38,11 @@ const Main = () => {
         temp.on('connect', _=>{console.log("connected")});
         temp.on('disconnect', _=>{console.log("disconnected")});
         temp.on('receive', (data)=>{
-          dispatch(addMessage("to", data.from_user, data.message))
+          dispatchMessage(addMessage("to", data.from_user, data.message))
         })
         setSocket(temp)
       }
-    },[user, socket, setSocket,  dispatch])
+    },[user, socket, setSocket,  dispatchMessage])
 
   const toggle = () => {
     setCollapsed(!collapsed);

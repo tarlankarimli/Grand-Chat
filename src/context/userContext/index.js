@@ -1,5 +1,5 @@
 import React, {createContext, useState, useEffect} from 'react';
-import appConfig from '../../config/appConfig'
+import appConfig from 'config/appConfig'
 
 const userContext = createContext();
 
@@ -7,9 +7,9 @@ const UserContextProvider = ({children}) => {
   const [user, setUser] = useState(undefined);
   useEffect(() => {
     let ProfilName = JSON.parse((window.localStorage.getItem(appConfig.ProfilName)));
-    let Localtoken = window.localStorage.getItem(appConfig.Localtoken)
+    let token = window.localStorage.getItem(appConfig.Localtoken)
     if(ProfilName) {
-        setUser({...ProfilName,token: Localtoken})
+        setUser({...ProfilName,token: token})
     }
   }, [])
     return (

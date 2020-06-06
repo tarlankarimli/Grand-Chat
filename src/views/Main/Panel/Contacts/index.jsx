@@ -1,10 +1,10 @@
 import React, {useState, useContext, useEffect} from 'react'
-import * as ContactApi from '../../../../api/ContactApi'
+import * as ContactApi from 'api/ContactApi'
 import { Layout, Button, Pagination, Table, Popconfirm, message} from "antd"
 import "./Contacts.scss"
 import CreateContact from './Modals/CreateContact';
 import EditContact from './Modals/EditContact';
-import contactsContext, {ActionTypes} from '../../../../context/contactsContext'
+import contactsContext, {ActionTypes} from 'context/contactsContext'
 
 const { Content } = Layout;
 const Contacts = () => {

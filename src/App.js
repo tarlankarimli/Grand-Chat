@@ -6,7 +6,6 @@ import {Switch, Route, useHistory} from 'react-router-dom';
 import appConfig from './config/appConfig';
 import {UserContextProvider} from './context/userContext';
 import {SocketContextProvider} from './context/socketContext';
-import {MessageContextProvider} from './context/messageContext';
 
 function App() {
   const history = useHistory();
@@ -25,9 +24,7 @@ function App() {
         </Route>
         <Route path = "/">
           <SocketContextProvider>
-            <MessageContextProvider>
               <Main/>
-            </MessageContextProvider>
           </SocketContextProvider>
         </Route>        
       </Switch>

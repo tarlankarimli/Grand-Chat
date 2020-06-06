@@ -1,18 +1,18 @@
 import React, { useEffect, useContext, useState } from 'react'
-import {getContacts} from '../../../../api/ContactApi'
+import {getContacts} from 'api/ContactApi'
 import { Layout, Input, Button } from "antd"
-import ChatItem from '../../../../component/ChatItem/index'
+import ChatItem from 'component/ChatItem/index'
 import "./Chat.scss";
 import {
     SendOutlined, UserOutlined
   } from '@ant-design/icons';
   import { Avatar } from 'antd';
-  import contactsContext, {ActionTypes} from '../../../../context/contactsContext';
-  import userContext from '../../../../context/userContext'
-  import socketContext from '../../../../context/socketContext'
+  import contactsContext, {ActionTypes} from 'context/contactsContext';
+  import userContext from 'context/userContext'
+  import socketContext from 'context/socketContext'
   import {useSelector} from 'react-redux'
   import {useDispatch} from 'react-redux'
-  import addMessage from '../../../../store/messages/actions'
+  import addMessage from 'store/messages/actions'
 
 const { Content } = Layout;
 const Chat = () => {
@@ -23,6 +23,11 @@ const Chat = () => {
     const [selectedContactId, setSelectedContactId] = useState(undefined);
     const message = useSelector(store => store.message);
     const dispatchMessage = useDispatch();
+    const socketEmit = () => {
+        socket.emit('send', {from_user: user.id, to_user: selectedContactId, message: typedMessages});
+    dispatchMessage(addMessage("from", selectedContactId, typedMessages))
+    setTypedMessages('');
+    }
 
     useEffect(() => {  
         dispatch({type: ActionTypes.LOADING})  
@@ -82,9 +87,7 @@ const Chat = () => {
                     onChange = {(e)=> {setTypedMessages(e.target.value)}}
                     onKeyDown = {(key)=>{
                         if(key.keyCode===13){
-                            socket.emit('send', {from_user: user.id, to_user: selectedContactId, message: typedMessages})
-                            dispatchMessage(addMessage("from", selectedContactId, typedMessages))
-                            setTypedMessages('');
+                            socketEmit();
                         }
                     }}
                     />
@@ -95,9 +98,7 @@ const Chat = () => {
                         icon={<SendOutlined />}
                         size="large"
                         onClick={()=> {
-                            socket.emit('send', {from_user: user.id, to_user: selectedContactId, message: typedMessages});
-                            dispatchMessage(addMessage("from", selectedContactId, typedMessages))
-                            setTypedMessages('');
+                            socketEmit();
                         }}>                        
                     </Button>
                 </footer>

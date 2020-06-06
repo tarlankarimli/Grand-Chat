@@ -1,7 +1,7 @@
 import React from 'react'
 import './CreateContact.scss'
 import { Button, Modal, Form, Input, message} from "antd";
-import * as AuthApi from '../../../../../../api/AuthApi';
+import * as AuthApi from 'api/AuthApi';
 
 
 const CreateContact =({visible, setVisible, refresh}) => {

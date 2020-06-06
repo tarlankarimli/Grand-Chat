@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './CreateContact.scss'
 import { Button, Modal, Form, Input, message} from "antd";
-import * as ContactApi from '../../../../../../api/ContactApi'
+import * as ContactApi from 'api/ContactApi'
 
 
 const EditContact =({visible, setVisible, refresh, id}) => {

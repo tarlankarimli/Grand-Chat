@@ -1,10 +1,10 @@
 import React, {useState, useContext} from 'react';
 import './Login.scss';
 import { Input, message, Button } from 'antd';
-import * as AuthApi from '../../api/AuthApi';
+import * as AuthApi from 'api/AuthApi';
 import { useHistory } from "react-router-dom";
-import appConfig from '../../config/appConfig';
-import userContext from '../../context/userContext/index';
+import appConfig from 'config/appConfig';
+import userContext from 'context/userContext/index';
 
 
 const Login = () => {

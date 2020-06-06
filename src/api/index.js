@@ -6,7 +6,6 @@ const instance = axios.create({
     baseURL: apiConfig.url,
     headers: {'Content-type': 'application/json'}
   });
-
   instance.interceptors.request.use(function (config) {
     let token = (window.localStorage.getItem(appConfig.Localtoken));
     if(token) {
