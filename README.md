@@ -1,6 +1,6 @@
-// install node modules<br /><br /><br />
+// install node modules<br /><br />
 // run the project<br /><br />
-// to enter other pages of projects you should register firstly, then you can get token and login<br />
+// to enter other pages of the project you should register firstly, then you can get token and login<br />
 
 ## Available Scripts
 
