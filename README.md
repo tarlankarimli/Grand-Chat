@@ -1,6 +1,11 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+// install node modules
+// run the project
+// to enter other pages of projects you should register firstly, then you can get token and login
 
 ## Available Scripts
+
+To install node nodules
+### `npm install`
 
 In the project directory, you can run:
 
